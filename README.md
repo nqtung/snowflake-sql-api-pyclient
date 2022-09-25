@@ -51,11 +51,22 @@ import snowflake_sql_api_client
 from snowflake_sql_api_client.rest import ApiException
 from pprint import pprint
 
+from snowflake_sql_api_client.utilities.sql_api_generate_jwt import JWTGenerator 
+
+# Generate JWT Token
+jwt_token = JWTGenerator(
+    account=[YOUR SNOWFLAKE HOST]
+    , user=[YOUR USERNAME]
+    , private_key=[YOUR USENAME PRIVATE_KEY]
+    , lifetime=timedelta(minutes=lifetime_in_minutes)
+    , renewal_delay=timedelta(minutes=renewal_delay_in_minutes)
+    ).get_token()
+
 # Configure API key authorization: bearerAuth
 configuration = snowflake_sql_api_client.Configuration()
-configuration.api_key['Authorization'] = 'YOUR_API_KEY'
+configuration.api_key['Authorization'] = jwt_token
 # Uncomment below to setup prefix (e.g. Bearer) for API key, if needed
-# configuration.api_key_prefix['Authorization'] = 'Bearer'
+configuration.api_key_prefix['Authorization'] = 'Bearer'
 
 # create an instance of the API class
 api_instance = snowflake_sql_api_client.Apiv2statementsApi(snowflake_sql_api_client.ApiClient(configuration))
