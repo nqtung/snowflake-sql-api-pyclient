@@ -33,7 +33,7 @@ setup(
     packages=find_packages(),
     include_package_data=True,
     long_description="""\
-    The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.   
+    The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.
     Contact Support - Email: tungnq@gmail.com  # noqa: E501
     """
 )
