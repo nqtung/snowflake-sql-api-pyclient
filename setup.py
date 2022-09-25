@@ -10,8 +10,8 @@
 
 from setuptools import setup, find_packages  # noqa: H301
 
-NAME = "Snowflake SQL API Client"
-VERSION = "1.0.0"
+NAME = "snowflake-sql-api-client"
+VERSION = "2.0.0"
 # To install the library, run the following
 #
 # python setup.py install
@@ -25,8 +25,8 @@ setup(
     name=NAME,
     version=VERSION,
     description="Snowflake SQL API V2",
-    author_email="",
-    url="",
+    author_email="tungnq@gmail.com",
+    url="https://github.com/nqtung/snowflake-sql-api-pyclient",
     keywords=["Snowflake SQL API V2"],
     install_requires=REQUIRES,
     packages=find_packages(),
