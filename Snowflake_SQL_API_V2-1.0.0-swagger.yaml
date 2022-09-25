@@ -1,0 +1,814 @@
+openapi: 3.0.0
+info:
+  title: Snowflake SQL API V2
+  description: >-
+    The Snowflake SQL API is a REST API that you can use to access and update
+    data in a Snowflake database. 
+
+
+    Contact Support:
+     Name: Snowflake, Inc.
+     Email: support@snowflake.com
+  version: 1.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/Home4677/Snowflake_SQL_API_V2/1.0.0
+  - url: http://{{baseurl}}
+components:
+  securitySchemes:
+    bearerAuth:
+      #type: http
+      #scheme: bearer
+      type: apiKey
+      in: header
+      name: Authorization
+security:
+  - bearerAuth: []
+tags:
+  - name: api/v2/statements
+  - name: api/v2/statements > {statement Handle}
+paths:
+  /api/v2/statements/{statementHandle}:
+    get:
+      tags:
+        - api/v2/statements > {statement Handle}
+      summary: Checks the status of the execution of a statement
+      description: >-
+        Checks the status of the execution of the statement with the specified
+        statement handle. If the statement was executed successfully, the
+        operation returns the requested partition of the result set.
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: User-Agent
+          in: header
+          schema:
+            type: string
+          description: >-
+            (Required) Set this to the name and version of your application
+            (e.g. “applicationName/applicationVersion”). You must use a value
+            that complies with RFC 7231.
+          example: <string>
+        - name: X-Snowflake-Authorization-Token-Type
+          in: header
+          schema:
+            type: string
+          description: >-
+            Specify the authorization token type for the Authorization header.
+            KEYPAIR_JWT is for Keypair JWT or OAUTH for oAuth token. If not
+            specified, OAUTH is assumed.
+          example: <string>
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: >-
+            Unique ID of the API request. This ensures that the execution is
+            idempotent. If not specified, a new UUID is generated and assigned.
+          example: <uuid>
+        - name: partition
+          in: query
+          schema:
+            type: string
+          description: >-
+            Number of the partition of results to return. The number can range
+            from 0 to the total number of partitions minus 1.
+          example: <long>
+        - name: statementHandle
+          in: path
+          schema:
+            type: string
+          required: true
+          description: >-
+            (Required) The handle of the statement that you want to use (e.g. to
+            fetch the result set or cancel execution).
+          example: <uuid>
+      responses:
+        '200':
+          description: OK
+          headers:
+            link:
+              schema:
+                type: string
+                example: <string>
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                statementHandle: <uuid>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+                resultSetMetaData:
+                  format: <string>
+                  rowType:
+                    - name: <string>
+                      type: <string>
+                      length: <long>
+                      precision: <long>
+                      scale: <long>
+                      nullable: <boolean>
+                  partitionInfo:
+                    - rowCount: <long>
+                      compressedSize: <long>
+                      uncompressedSize: <long>
+                    - rowCount: <long>
+                      compressedSize: <long>
+                      uncompressedSize: <long>
+                  nullable: <boolean>
+                  parameters:
+                    binary_output_format: <string>
+                    date_output_format: <string>
+                    time_output_format: <string>
+                    timestamp_output_format: <string>
+                    timestamp_ltz_output_format: <string>
+                    timestamp_ntz_output_format: <string>
+                    timestamp_tz_output_format: <string>
+                    multi_statement_count: <integer>
+                data:
+                  - - <string>
+                    - <string>
+                  - - <string>
+                    - <string>
+                stats:
+                  numRowsInserted: <long>
+                  numRowsUpdated: <long>
+                  numRowsDeleted: <long>
+                  numDuplicateRowsUpdated: <long>
+        '202':
+          description: Accepted
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '405':
+          description: Method Not Allowed
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '415':
+          description: Unsupported Media Type
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: <string>
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+        '429':
+          description: Too Many Requests
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '503':
+          description: Service Unavailable
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '504':
+          description: Gateway Timeout
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v2/statements/{statementHandle}/cancel:
+    post:
+      tags:
+        - api/v2/statements > {statement Handle}
+      summary: Cancels the execution of a statement.
+      description: >-
+        Cancels the execution of the statement with the specified statement
+        handle.
+      requestBody:
+        content: {}
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: User-Agent
+          in: header
+          schema:
+            type: string
+          description: >-
+            (Required) Set this to the name and version of your application
+            (e.g. “applicationName/applicationVersion”). You must use a value
+            that complies with RFC 7231.
+          example: <string>
+        - name: X-Snowflake-Authorization-Token-Type
+          in: header
+          schema:
+            type: string
+          description: >-
+            Specify the authorization token type for the Authorization header.
+            KEYPAIR_JWT is for Keypair JWT or OAUTH for oAuth token. If not
+            specified, OAUTH is assumed.
+          example: <string>
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: >-
+            Unique ID of the API request. This ensures that the execution is
+            idempotent. If not specified, a new UUID is generated and assigned.
+          example: <uuid>
+        - name: statementHandle
+          in: path
+          schema:
+            type: string
+          required: true
+          description: >-
+            (Required) The handle of the statement that you want to use (e.g. to
+            fetch the result set or cancel execution).
+          example: <uuid>
+      responses:
+        '200':
+          description: OK
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                statementStatusUrl: <uri>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '405':
+          description: Method Not Allowed
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                statementStatusUrl: <uri>
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '503':
+          description: Service Unavailable
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '504':
+          description: Gateway Timeout
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+  /api/v2/statements:
+    post:
+      tags:
+        - api/v2/statements
+      summary: Submits a SQL statement for execution.
+      description: >-
+        Submits a single statement for execution. You can specify that the
+        statement should be executed asynchronously.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                statement: <string>
+                timeout: <long>
+                database: <string>
+                schema: <string>
+                warehouse: <string>
+                role: <string>
+                bindings: {}
+                parameters:
+                  timezone: <string>
+                  query_tag: <string>
+                  binary_output_format: <string>
+                  date_output_format: <string>
+                  time_output_format: <string>
+                  timestamp_output_format: <string>
+                  timestamp_ltz_output_format: <string>
+                  timestamp_ntz_output_format: <string>
+                  timestamp_tz_output_format: <string>
+                  multi_statement_count: 1
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: User-Agent
+          in: header
+          schema:
+            type: string
+          description: >-
+            (Required) Set this to the name and version of your application
+            (e.g. “applicationName/applicationVersion”). You must use a value
+            that complies with RFC 7231.
+          example: <string>
+        - name: X-Snowflake-Authorization-Token-Type
+          in: header
+          schema:
+            type: string
+          description: >-
+            Specify the authorization token type for the Authorization header.
+            KEYPAIR_JWT is for Keypair JWT or OAUTH for oAuth token. If not
+            specified, OAUTH is assumed.
+          example: <string>
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: Accept
+          in: header
+          schema:
+            type: string
+          example: application/json
+        - name: requestId
+          in: query
+          schema:
+            type: string
+          description: >-
+            Unique ID of the API request. This ensures that the execution is
+            idempotent. If not specified, a new UUID is generated and assigned.
+          example: <uuid>
+        - name: async
+          in: query
+          schema:
+            type: string
+          description: >-
+            Set to true to execute the statement asynchronously and return the
+            statement handle. If the parameter is not specified or is set to
+            false, a statement is executed and the first result is returned if
+            the execution is completed in 45 seconds. If the statement execution
+            takes longer to complete, the statement handle is returned.
+          example: <boolean>
+        - name: nullable
+          in: query
+          schema:
+            type: string
+          description: >-
+            Set to true to execute the statement to generate the result set
+            including null. If the parameter is set to false, the result set
+            value null will be replaced with a string 'null'.
+          example: <boolean>
+      responses:
+        '200':
+          description: OK
+          headers:
+            link:
+              schema:
+                type: string
+                example: <string>
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                statementHandle: <uuid>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+                resultSetMetaData:
+                  format: <string>
+                  rowType:
+                    - name: <string>
+                      type: <string>
+                      length: <long>
+                      precision: <long>
+                      scale: <long>
+                      nullable: <boolean>
+                  partitionInfo:
+                    - rowCount: <long>
+                      compressedSize: <long>
+                      uncompressedSize: <long>
+                    - rowCount: <long>
+                      compressedSize: <long>
+                      uncompressedSize: <long>
+                  nullable: <boolean>
+                  parameters:
+                    binary_output_format: <string>
+                    date_output_format: <string>
+                    time_output_format: <string>
+                    timestamp_output_format: <string>
+                    timestamp_ltz_output_format: <string>
+                    timestamp_ntz_output_format: <string>
+                    timestamp_tz_output_format: <string>
+                    multi_statement_count: <integer>
+                data:
+                  - - <string>
+                    - <string>
+                  - - <string>
+                    - <string>
+                stats:
+                  numRowsInserted: <long>
+                  numRowsUpdated: <long>
+                  numRowsDeleted: <long>
+                  numDuplicateRowsUpdated: <long>
+        '202':
+          description: Accepted
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+        '400':
+          description: Bad Request
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '401':
+          description: Unauthorized
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '403':
+          description: Forbidden
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '404':
+          description: Not Found
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '405':
+          description: Method Not Allowed
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '408':
+          description: Request Timeout
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                message: <string>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+        '415':
+          description: Unsupported Media Type
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '422':
+          description: Unprocessable Entity (WebDAV) (RFC 4918)
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: <string>
+                statementHandle: <uuid>
+                code: <string>
+                sqlState: <string>
+                createdOn: <long>
+                statementStatusUrl: <uri>
+        '429':
+          description: Too Many Requests
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '500':
+          description: Internal Server Error
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '503':
+          description: Service Unavailable
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
+        '504':
+          description: Gateway Timeout
+          headers:
+            Content-Type:
+              schema:
+                type: string
+                example: text/plain
+          content:
+            text/plain:
+              schema:
+                type: string
+              example: ''
