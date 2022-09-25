@@ -44,7 +44,7 @@ class TestApiv2statementsApi(unittest.TestCase):
         """
 
         sql_query = """{
-            "statement": "select top 10 * from WELL_NPT_GOLD",
+            "statement": "select top 10 * from TBL",
             "database": "DB",
             "schema": "DBSchema",
             "warehouse": "DB_WH",
