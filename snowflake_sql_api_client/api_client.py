@@ -2,7 +2,7 @@
 """
     Snowflake SQL API V2
 
-    The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.   Contact Support:  Name: Snowflake, Inc.  Email: support@snowflake.com  # noqa: E501
+    The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.     # noqa: E501
 
     OpenAPI spec version: 1.0.0
     
