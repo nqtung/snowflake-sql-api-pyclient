@@ -1,5 +1,7 @@
 # Snowflake SQL API Client
-The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.   Contact Support:  Name: Snowflake, Inc.  Email: support@snowflake.com
+The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.
+
+Contact Support - Email: tungnq@gmail.com
 
 ## Requirements.
 
