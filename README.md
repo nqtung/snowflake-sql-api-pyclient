@@ -1,7 +1,7 @@
-# Snowflake SQL API Client
+﻿# Snowflake SQL API Client
 The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.
 
-Contact Support - Email: tungnq@gmail.com
+Contact Support - Email: tungnq@gmail.com 
 
 ## Requirements.
 
@@ -71,7 +71,7 @@ configuration.api_key_prefix['Authorization'] = 'Bearer'
 # create an instance of the API class
 api_instance = snowflake_sql_api_client.Apiv2statementsApi(snowflake_sql_api_client.ApiClient(configuration))
 body = NULL # object |  (optional)
-user_agent = 'user_agent_example' # str | (Required) Set this to the name and version of your application (e.g. “applicationName/applicationVersion”). You must use a value that complies with RFC 7231. (optional)
+user_agent = 'user_agent_example' # str | (Required) Set this to the name and version of your application (e.g. â€œapplicationName/applicationVersionâ€). You must use a value that complies with RFC 7231. (optional)
 x_snowflake_authorization_token_type = 'x_snowflake_authorization_token_type_example' # str | Specify the authorization token type for the Authorization header. KEYPAIR_JWT is for Keypair JWT or OAUTH for oAuth token. If not specified, OAUTH is assumed. (optional)
 content_type = 'content_type_example' # str |  (optional)
 accept = 'accept_example' # str |  (optional)

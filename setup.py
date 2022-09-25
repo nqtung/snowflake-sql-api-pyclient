@@ -12,7 +12,14 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "snowflake-sql-api-client"
-VERSION = "2.0.3"
+VERSION = "2.0.4"
+
+# read the contents of your README file
+from pathlib import Path
+this_directory = Path(__file__).parent
+
+long_description = (this_directory / "README.md").read_text("utf-8")
+
 # To install the library, run the following
 #
 # python setup.py install
@@ -32,8 +39,6 @@ setup(
     install_requires=REQUIRES,
     packages=find_packages(),
     include_package_data=True,
-    long_description="""\
-    The Snowflake SQL API is a REST API that you can use to access and update data in a Snowflake database.
-    Contact Support - Email: tungnq@gmail.com  # noqa: E501
-    """
+    long_description=long_description,
+    long_description_content_type='text/markdown'
 )
