@@ -8,6 +8,26 @@ Contact Support - Email: tungnq@gmail.com
 Python 2.7 and 3.4+
 
 ## Installation & Usage
+
+### Install a Virtual Environment using Venv
+
+```sh
+pip install virtualenv
+```
+
+Go to project folder
+
+```sh
+python -m venv env
+```
+
+### Activate the Virtual Environment
+
+```sh
+ env/Scripts/activate.bat //In CMD
+ env/Scripts/Activate.ps1 //In Powershel
+```
+
 ### pip install
 
 ```sh
@@ -38,6 +58,32 @@ python setup.py install --user
 Then import the package:
 ```python
 import snowflake_sql_api_client
+```
+
+### Generate the distribution archives on local machine - https://towardsdatascience.com/how-to-publish-a-python-package-to-pypi-7be9dd5d6dcd
+
+Upgrade setuptools wheel
+
+```sh
+python -m pip install –-user –-upgrade setuptools wheel
+```
+
+Generate the distribution files.
+
+```sh
+python setup.py sdist bdist_wheel
+```
+
+### Install the package on local machine.
+```sh
+pip install -e .
+```
+
+### Publish the package to the PyPi repository
+```sh
+pip install twine
+
+python -m twine upload dist/*
 ```
 
 ## Getting Started

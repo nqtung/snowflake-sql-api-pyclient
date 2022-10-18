@@ -12,7 +12,7 @@
 from setuptools import setup, find_packages  # noqa: H301
 
 NAME = "snowflake-sql-api-client"
-VERSION = "2.0.4"
+VERSION = "2.0.6"
 
 # read the contents of your README file
 from pathlib import Path
